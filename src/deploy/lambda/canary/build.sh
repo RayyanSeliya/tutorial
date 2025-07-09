@@ -41,7 +41,16 @@ fi
 # Create zip file
 echo "Creating zip package..."
 cd "$BUILD_DIR"
-zip -r "../$ZIP_FILE" .
+
+# Check if we're on Windows (Git Bash) and use PowerShell for zip
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+    # Use PowerShell to create zip on Windows
+    powershell.exe -command "Compress-Archive -Path * -DestinationPath '../$ZIP_FILE' -Force"
+else
+    # Use standard zip command on Linux/Mac
+    zip -r "../$ZIP_FILE" .
+fi
+
 cd ..
 
 # Cleanup build directory

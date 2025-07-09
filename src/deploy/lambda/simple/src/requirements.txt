@@ -1,0 +1,13 @@
+# Requirements for PipeCD Tutorial Lambda Function
+# This file lists the Python dependencies needed for the Lambda function
+
+# No external dependencies required for this simple example
+# The function only uses Python standard library modules:
+# - json (built-in)
+# - os (built-in) 
+# - datetime (built-in)
+
+# If you need to add dependencies in the future, list them here
+# For example:
+# requests==2.31.0
+# boto3==1.34.0
