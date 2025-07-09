@@ -4,6 +4,13 @@ kind: LambdaFunction
 spec:
   name: PipeCDTutorial_Simple
   role: <IAM_ROLE_ARN> # [EDIT_HERE] The ARN of the function’s execution role.
-  image: <IMAGE_URI> # [EDIT_HERE] The URI of a container image in your ECR repository.
+  # Using zip deployment instead of container image for simpler setup
+  source:
+    s3Bucket: <S3_BUCKET_NAME> # [EDIT_HERE] S3 bucket containing your zip file
+    s3Key: <S3_KEY_PATH> # [EDIT_HERE] S3 key path to your zip file (e.g., lambda/pipecd-tutorial-simple.zip)
+  runtime: python3.9
+  handler: index.lambda_handler
   memory: 512
   timeout: 30
+  environment:
+    FUNCTION_VERSION: "v1.0.0"

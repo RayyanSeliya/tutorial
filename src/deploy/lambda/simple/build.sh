@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Build script for PipeCD Tutorial Lambda Function
+# This script packages the Lambda function code into a zip file
+
+set -e
+
+echo "Building PipeCD Tutorial Lambda Function..."
+
+# Create build directory
+BUILD_DIR="build"
+FUNCTION_NAME="pipecd-tutorial-simple"
+ZIP_FILE="${FUNCTION_NAME}.zip"
+
+# Clean previous build
+if [ -d "$BUILD_DIR" ]; then
+    echo "Cleaning previous build..."
+    rm -rf "$BUILD_DIR"
+fi
+
+if [ -f "$ZIP_FILE" ]; then
+    echo "Removing previous zip file..."
+    rm "$ZIP_FILE"
+fi
+
+# Create build directory
+mkdir -p "$BUILD_DIR"
+
+# Copy source code
+echo "Copying source code..."
+cp src/index.py "$BUILD_DIR/"
+
+# Install dependencies if requirements.txt has actual dependencies
+if [ -f "src/requirements.txt" ] && [ -s "src/requirements.txt" ] && grep -v '^#' src/requirements.txt | grep -v '^$' > /dev/null; then
+    echo "Installing Python dependencies..."
+    pip install -r src/requirements.txt -t "$BUILD_DIR/"
+else
+    echo "No dependencies to install (using only standard library)"
+fi
+
+# Create zip file
+echo "Creating zip package..."
+cd "$BUILD_DIR"
+zip -r "../$ZIP_FILE" .
+cd ..
+
+# Cleanup build directory
+rm -rf "$BUILD_DIR"
+
+echo "✅ Lambda function packaged successfully: $ZIP_FILE"
+echo "📦 Package size: $(du -h "$ZIP_FILE" | cut -f1)"
+echo ""
+echo "Next steps:"
+echo "1. Upload $ZIP_FILE to an S3 bucket"
+echo "2. Update function.yaml with the S3 bucket and key"
+echo "3. Deploy using PipeCD"

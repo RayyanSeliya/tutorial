@@ -22,9 +22,11 @@
     - `servicedef.yaml`: `cluster`, `securityGroups`, `subnets`
     - `taskdef.yaml`: `executionRoleArn`.
 - **AWS Lambda**向け:
-  - あなたのイメージを利用して関数をデプロイしていきます。
-  - `lambda/simple/`の以下の箇所を編集してください。
-    - `function.yaml`: `role`, `image`
+  - シンプルなPythonソースコードパッケージを使用して関数をデプロイしていきます。
+  - `lambda/simple/`の以下の手順を実行してください。
+    - 関数パッケージをビルド: `./build.sh` (Linux/Mac) または `build.bat` (Windows) を実行
+    - 生成されたzipファイルをS3バケットにアップロード
+    - `function.yaml`: `role`, `s3Bucket`, `s3Key` を編集
 - **Terraform**向け:
   - ファイルをローカルに生成していきます。
   - `terraform/simple/`の以下の箇所を編集してください。

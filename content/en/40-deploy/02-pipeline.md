@@ -21,9 +21,11 @@ _The process is almost the same as [1. Deploy Simply](01-simply.md). Only the co
     - `servicedef.yaml`: Copy from your `/src/deploy/ecs/simple/servicedef.yaml` and rename `serviceName`.
     - `taskdef.yaml`: Copy from your `/src/deploy/ecs/simple/taskdef.yaml` and rename `family`.
 - For **AWS Lambda**:
-  - You will create a function of your own image by Canary release.
+  - You will create a function using source code with Canary release strategy.
   - Edit `lambda/canary/` as below.
-    - `function.yaml`: Copy from your `/src/deploy/lambda/simple/function.yaml`] and rename `name`.
+    - Build the canary function package: Run `./build.sh` (Linux/Mac) or `build.bat` (Windows)
+    - Upload the generated zip file to your S3 bucket
+    - `function.yaml`: Edit `role`, `s3Bucket`, and `s3Key` (the function name is already different from simple)
 - For **Terraform**:
   - You will generate a file on local with plan->approval->apply pipeline.
   - Edit `terraform/plan-approval-apply/` as below.

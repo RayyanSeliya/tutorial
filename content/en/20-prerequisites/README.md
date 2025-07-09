@@ -23,8 +23,9 @@ To perform this tutorial, you need the following:
   - for **AWS Lambda**:
     - You can call APIs of Lambda from your local to your AWS account. See [here](https://pipecd.dev/docs/installation/install-piped/required-permissions/#for-lambdaapp) for details.
     - You have all of (i.e. all you need to create a Lambda function):
-      - an image in your ECR Repository
+      - an S3 bucket for storing Lambda zip files
       - function’s execution role
+      - Python 3.9+ installed locally (for building the function package)
   - for **Terraform**:
     - You can execute [`terraform` commands](https://developer.hashicorp.com/terraform/cli/commands) on local.
 
