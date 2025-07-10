@@ -21,9 +21,9 @@ _手順は[1. シンプルなデプロイ](01-simply.md)とほとんど同じで
     - `servicedef.yaml`: `/src/deploy/ecs/simple/servicedef.yaml`からコピーして、`serviceName`を変更
     - `taskdef.yaml`: `/src/deploy/ecs/simple/taskdef.yaml`からコピーして、`family`を変更
 - **AWS Lambda**向け:
-  - ソースコードを使用して関数をCanaryリリースしていきます。
-  - `lambda/canary/`を以下のように編集してください。
-    - `function.yaml`: `role` のみ編集（PipeCDが自動的にソースコードをパッケージ化してデプロイします）
+  - Canaryデプロイ戦略を使用してあなた自身のPythonソースコードから関数を作成します。
+  - `lambda/canary/function.yaml`を編集: `src/deploy/lambda/simple/function.yaml`からコピーして`name`を変更してください。
+  - **ZIPファイルを手動でビルドやアップロードする必要はありません。PipeCDが自動的に関数をパッケージ化してデプロイします。**
     - `function.yaml`: `/src/deploy/lambda/simple/function.yaml`からコピーして、`name`を変更
 - **Terraform**向け:
   - ファイルをローカルに生成していきます。plan->承認->applyのパイプラインを構築します。

@@ -22,9 +22,9 @@
     - `servicedef.yaml`: `cluster`, `securityGroups`, `subnets`
     - `taskdef.yaml`: `executionRoleArn`.
 - **AWS Lambda**向け:
-  - シンプルなPythonソースコードを使用して関数をデプロイしていきます。
-  - `lambda/simple/`の以下の箇所を編集してください。
-    - `function.yaml`: `role` のみ編集（PipeCDが自動的にソースコードをパッケージ化してデプロイします）
+  - あなた自身のPythonソースコードから関数を作成します。
+  - `lambda/simple/function.yaml`を編集: `role`フィールドを編集してください。
+  - **ZIPファイルを手動でビルドやアップロードする必要はありません。PipeCDが自動的に関数をパッケージ化してデプロイします。**
 - **Terraform**向け:
   - ファイルをローカルに生成していきます。
   - `terraform/simple/`の以下の箇所を編集してください。

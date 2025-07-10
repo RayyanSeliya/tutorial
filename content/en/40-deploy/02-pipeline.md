@@ -21,9 +21,9 @@ _The process is almost the same as [1. Deploy Simply](01-simply.md). Only the co
     - `servicedef.yaml`: Copy from your `/src/deploy/ecs/simple/servicedef.yaml` and rename `serviceName`.
     - `taskdef.yaml`: Copy from your `/src/deploy/ecs/simple/taskdef.yaml` and rename `family`.
 - For **AWS Lambda**:
-  - You will create a function using source code with Canary release strategy.
-  - Edit `lambda/canary/` as below.
-    - `function.yaml`: Edit `role` only (PipeCD automatically packages and deploys your source code)
+  - You will create a function from your own Python source code using a canary deployment strategy.
+  - Edit `lambda/canary/function.yaml`: Copy from your `src/deploy/lambda/simple/function.yaml` and rename the `name`.
+  - **No need to build or upload a ZIP file manually. PipeCD will package and deploy your function automatically.**
 - For **Terraform**:
   - You will generate a file on local with plan->approval->apply pipeline.
   - Edit `terraform/plan-approval-apply/` as below.
