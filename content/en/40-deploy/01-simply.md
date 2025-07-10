@@ -22,11 +22,9 @@ In this page, you will deploy an application to your platform in a simple way.
     - `servicedef.yaml`: Edit `cluster`, `securityGroups`, and `subnets`.
     - `taskdef.yaml`: Edit `executionRoleArn`.
 - For **AWS Lambda**:
-  - You will create a function using a simple Python source code package.
+  - You will create a function using simple Python source code.
   - Edit `lambda/simple/` as below.
-    - Build the function package: Run `./build.sh` (Linux/Mac) or `build.bat` (Windows)
-    - Upload the generated zip file to your S3 bucket
-    - `function.yaml`: Edit `role`, `s3Bucket`, and `s3Key`
+    - `function.yaml`: Edit `role` only (PipeCD automatically packages and deploys your source code)
 - For **Terraform**:
   - You will generate a file on local.
   - Edit `terraform/simple/` as below.

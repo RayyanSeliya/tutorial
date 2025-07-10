@@ -23,9 +23,7 @@ _手順は[1. シンプルなデプロイ](01-simply.md)とほとんど同じで
 - **AWS Lambda**向け:
   - ソースコードを使用して関数をCanaryリリースしていきます。
   - `lambda/canary/`を以下のように編集してください。
-    - Canary関数パッケージをビルド: `./build.sh` (Linux/Mac) または `build.bat` (Windows) を実行
-    - 生成されたzipファイルをS3バケットにアップロード
-    - `function.yaml`: `role`, `s3Bucket`, `s3Key` を編集（関数名は既にsimpleと異なります）
+    - `function.yaml`: `role` のみ編集（PipeCDが自動的にソースコードをパッケージ化してデプロイします）
     - `function.yaml`: `/src/deploy/lambda/simple/function.yaml`からコピーして、`name`を変更
 - **Terraform**向け:
   - ファイルをローカルに生成していきます。plan->承認->applyのパイプラインを構築します。

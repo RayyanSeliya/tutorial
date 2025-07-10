@@ -2,12 +2,13 @@
 apiVersion: pipecd.dev/v1beta1
 kind: LambdaFunction
 spec:
-  name: PipeCDTutorial_Simple
+  name: SimpleZipFunction
   role: <IAM_ROLE_ARN> # [EDIT_HERE] The ARN of the function’s execution role.
-  # Using zip deployment instead of container image for simpler setup
+  # Using PipeCD's built-in source code packaging - no manual zip building or S3 uploads needed!
   source:
-    s3Bucket: <S3_BUCKET_NAME> # [EDIT_HERE] S3 bucket containing your zip file
-    s3Key: <S3_KEY_PATH> # [EDIT_HERE] S3 key path to your zip file (e.g., lambda/pipecd-tutorial-simple.zip)
+    git: ""  # Empty means same repository
+    ref: ""  # Empty means current commit
+    path: "src"  # Path to source code directory relative to this function.yaml
   runtime: python3.9
   handler: index.lambda_handler
   memory: 512

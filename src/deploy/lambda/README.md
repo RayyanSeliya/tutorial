@@ -1,6 +1,6 @@
 # Lambda Deployment with PipeCD Tutorial
 
-This directory contains examples for deploying AWS Lambda functions using PipeCD with **zip file deployment** instead of container images, making it much easier to get started.
+This directory contains examples for deploying AWS Lambda functions using PipeCD with **direct source code deployment** instead of container images, making it much easier to get started.
 
 ## 🎯 What's New (Issue #16)
 
@@ -11,9 +11,9 @@ Previously, the Lambda tutorial required:
 
 Now it uses:
 - ✅ Simple Python source code
-- ✅ Zip file packaging
-- ✅ Direct S3 upload
-- ✅ Minimal prerequisites
+- ✅ **Automatic packaging by PipeCD**
+- ✅ **No manual zip building or S3 uploads**
+- ✅ Minimal prerequisites (just an IAM role)
 
 ## 📁 Directory Structure
 
@@ -24,17 +24,13 @@ lambda/
 │   │   ├── index.py       # Lambda function source code
 │   │   └── requirements.txt # Python dependencies
 │   ├── function.yaml      # Lambda function configuration
-│   ├── app.pipecd.yaml   # PipeCD application config
-│   ├── build.sh          # Build script (Linux/Mac)
-│   └── build.bat         # Build script (Windows)
+│   └── app.pipecd.yaml    # PipeCD application config
 ├── canary/                # Canary deployment example
 │   ├── src/
 │   │   ├── index.py       # Enhanced Lambda function
 │   │   └── requirements.txt # Python dependencies
 │   ├── function.yaml      # Lambda function configuration
-│   ├── app.pipecd.yaml   # PipeCD canary pipeline config
-│   ├── build.sh          # Build script (Linux/Mac)
-│   └── build.bat         # Build script (Windows)
+│   └── app.pipecd.yaml    # PipeCD canary pipeline config
 └── README.md             # This file
 ```
 
@@ -43,34 +39,9 @@ lambda/
 ### Prerequisites
 
 1. **AWS CLI configured** with appropriate permissions
-2. **S3 bucket** for storing Lambda zip files
-3. **IAM role** for Lambda execution
-4. **Python 3.9+** (for local testing)
+2. **IAM role** for Lambda execution
 
-### Step 1: Build the Lambda Package
-
-**Linux/Mac:**
-```bash
-cd simple/
-chmod +x build.sh
-./build.sh
-```
-
-**Windows:**
-```cmd
-cd simple\
-build.bat
-```
-
-This creates `pipecd-tutorial-simple.zip` containing your Lambda function.
-
-### Step 2: Upload to S3
-
-```bash
-aws s3 cp pipecd-tutorial-simple.zip s3://your-bucket-name/lambda/pipecd-tutorial-simple.zip
-```
-
-### Step 3: Configure function.yaml
+### Step 1: Configure function.yaml
 
 Edit `simple/function.yaml`:
 
@@ -79,15 +50,21 @@ spec:
   name: PipeCDTutorial_Simple
   role: arn:aws:iam::123456789012:role/lambda-execution-role
   source:
-    s3Bucket: your-bucket-name
-    s3Key: lambda/pipecd-tutorial-simple.zip
+    git: ""  # Empty means same repository
+    ref: ""  # Empty means current commit
+    path: "src"  # Path to source code directory
   runtime: python3.9
   handler: index.lambda_handler
 ```
 
-### Step 4: Deploy with PipeCD
+### Step 2: Deploy with PipeCD
 
 Follow the main tutorial instructions to register and deploy the application.
+
+**That's it!** PipeCD will automatically:
+- Package your source code into a zip file
+- Deploy it to AWS Lambda
+- Handle all the complexity for you
 
 ## 📋 Function Details
 
@@ -115,16 +92,13 @@ Follow the main tutorial instructions to register and deploy the application.
    boto3==1.34.0
    ```
 
-2. Rebuild the package:
-   ```bash
-   ./build.sh
-   ```
+2. Commit and push - PipeCD will automatically install dependencies during packaging
 
 ### Modifying the Function
 
 1. Edit `src/index.py` with your custom logic
 2. Test locally: `python src/index.py`
-3. Rebuild and redeploy
+3. Commit and push - PipeCD handles the rest
 
 ### Environment Variables
 
@@ -163,15 +137,10 @@ This runs the function with a test event and displays the output.
 
 ## 🔍 Troubleshooting
 
-### Build Issues
-- Ensure Python 3.9+ is installed
-- Check file permissions on build scripts
-- Verify requirements.txt syntax
-
 ### Deployment Issues
-- Confirm S3 bucket permissions
 - Verify IAM role has Lambda execution permissions
 - Check function.yaml syntax
+- Ensure source code is in the correct directory structure
 
 ### Runtime Issues
 - Review CloudWatch logs

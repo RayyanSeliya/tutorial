@@ -23,9 +23,7 @@
   - **AWS Lambda**向け:
     - ローカルからあなたのAWSアカウントに対して、Lambdaの各種APIを実行できること。詳細は[こちら](https://pipecd.dev/docs/installation/install-piped/required-permissions/#for-lambdaapp)。
     - 下記のすべて。（一般的なLambda関数を作る際に必要なものと同じです）
-      - Lambdaのzipファイルを保存するためのS3バケット
       - 関数の実行ロール
-      - Python 3.9+がローカルにインストールされていること（関数パッケージのビルド用）
   - **Terraform**向け:
     - [`terraform` commands](https://developer.hashicorp.com/terraform/cli/commands)をローカルから実行できること。
 
