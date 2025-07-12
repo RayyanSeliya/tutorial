@@ -22,7 +22,7 @@
     - `servicedef.yaml`: `cluster`, `securityGroups`, `subnets`
     - `taskdef.yaml`: `executionRoleArn`.
 - **AWS Lambda**向け:
-  - あなた自身のPythonソースコードから関数を作成します。
+  - Pythonソースコードから関数を作成します。
   - `lambda/simple/function.yaml`を編集: `role`フィールドを編集してください。
   - **ZIPファイルを手動でビルドやアップロードする必要はありません。PipeCDが自動的に関数をパッケージ化してデプロイします。**
 - **Terraform**向け:

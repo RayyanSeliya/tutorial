@@ -22,7 +22,7 @@ In this page, you will deploy an application to your platform in a simple way.
     - `servicedef.yaml`: Edit `cluster`, `securityGroups`, and `subnets`.
     - `taskdef.yaml`: Edit `executionRoleArn`.
 - For **AWS Lambda**:
-  - You will create a function from your own Python source code.
+  - Create a function from Python source code.
   - Edit `lambda/simple/function.yaml`: Edit the `role` field.
   - **No need to build or upload a ZIP file manually. PipeCD will package and deploy your function automatically.**
 - For **Terraform**:
