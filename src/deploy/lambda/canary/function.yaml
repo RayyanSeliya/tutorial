@@ -6,9 +6,13 @@ spec:
   role: <IAM_ROLE_ARN> # [EDIT_HERE] The ARN of the function’s execution role.
   # Using PipeCD's built-in source code packaging - no manual zip building or S3 uploads needed!
   source:
-    git: ""  # Empty means same repository
-    ref: ""  # Empty means current commit
-    path: "src"  # Path to source code directory relative to this function.yaml
+    # git remote address where the source code is placing.
+    git: https://github.com/<YOUR_GITHUB_ACCOUNT_ID>/<YOUR_REPOSITORY_NAME>.git # [EDIT_HERE]
+    # the commit SHA or tag for remote git. Use branch name means you will always use
+    # the latest code of that branch as Lambda function code which is NOT recommended.
+    ref: main # [EDIT_HERE] Using main branch for simplicity in the tutorial
+    # relative path from the repository root directory to the function code directory.
+    path: "src"
   runtime: python3.9
   handler: index.lambda_handler
   memory: 512
